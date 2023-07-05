@@ -1,5 +1,24 @@
 import express, {json, Router} from "express";
 import cors from 'cors';
+import {Db, MongoClient} from "mongodb";
+import env from "dotenv";
+
+
+env.config();
+
+const mongo:MongoClient=new MongoClient(process.env.APP_DB_URL!);
+
+
+
+async function main() {
+    // Use connect method to connect to the server
+    await mongo.connect();
+    console.log('Connected successfully to server');
+    const db:Db = mongo.db(process.env.APP_DB_NAME);
+
+}
+main();
+
 
 export const router: Router = express.Router();
 
