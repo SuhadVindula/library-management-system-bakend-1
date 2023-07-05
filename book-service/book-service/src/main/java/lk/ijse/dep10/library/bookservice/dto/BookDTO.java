@@ -1,11 +1,9 @@
 package lk.ijse.dep10.library.bookservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -21,7 +19,7 @@ public class BookDTO {
     @NotBlank(message = "Author can not be empty")
     @Pattern(regexp = "^[A-Za-z ]+$",message = "Invalid author name")
     private String author;
-    @NotBlank(message = "Copies can not be empty")
+    @NotNull(message = "Copies can not be empty")
     @PositiveOrZero(message = "Copies can not be negative")
     private Integer copies;
 }

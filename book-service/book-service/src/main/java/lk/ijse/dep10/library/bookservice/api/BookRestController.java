@@ -21,28 +21,30 @@ public class BookRestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("application/json")
-    public String saveBook(@RequestBody @Validated BookDTO bookDTO) {
-        return "<h1>SaveBooK</h1>";
+    public void saveBook(@RequestBody @Validated BookDTO bookDTO) {
+        System.out.println("hello");
+        bookService.saveBook(bookDTO);
 
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping (value = "/{isbn}", consumes = "application/json")
-    public String updateBook(@PathVariable String isbn, @Validated @RequestBody BookDTO bookDTO) {
-        return "<h1>Update Book</h1>";
+    public void updateBook(@PathVariable String isbn, @Validated @RequestBody BookDTO bookDTO) {
+        bookDTO.setIsbn(isbn);
+        bookService.updateBook(bookDTO);
 
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{isbn}")
-    public String removeBook(@PathVariable String isbn) {
-        return "<h1>Remove Book</h1>";
+    public void removeBook(@PathVariable String isbn) {
+        bookService.deleteBook(isbn);
+
+    }
+    @GetMapping("/isbn")
+    public BookDTO getBook(@PathVariable String isbn) {
+        return bookService.getBook(isbn) ;
 
     }
     @GetMapping
-    public String getBook(@PathVariable String isbn) {
-        return "<h1>Get a book</h1>";
-
-    }
-    @PostMapping
     public List<BookDTO> findBooks(@RequestParam(name = "q",required = false)String query) {
         if(query==null) query = "";
         return bookService.findBooks(query);
